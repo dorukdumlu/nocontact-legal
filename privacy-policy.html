@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/png" href="./favicon.png" />
-  <title>Privacy Policy · NoContact</title>
-  <meta name="description" content="NoContact's privacy policy. Your breakup journey stays on your device." />
+  <title>Privacy Policy · No Contact Tracker</title>
+  <meta name="description" content="No Contact Tracker's privacy policy. Your breakup journey stays on your device." />
   <style>
     :root {
       --bg: #0a0514;
@@ -106,32 +106,33 @@
     <header>
       <a class="brand" href="./index.html"><img src="./assets/icon-96.png" alt="" style="width:22px;height:22px;border-radius:7px;vertical-align:-5px;margin-right:6px" /> No Contact Tracker</a>
       <h1>Privacy Policy</h1>
-      <p class="updated">Last updated: 25 February 2026</p>
+      <p class="updated">Last updated: 30 August 2026</p>
     </header>
 
     <div class="callout">
-      <p style="margin:0"><strong>The short version.</strong> Your breakup journey never leaves your phone. Every streak, mood, letter, red flag, and moment you save lives only on your device. We don't have a server that stores your content, and we can't read it even if we wanted to. A small amount of anonymous usage data (which buttons get tapped, crash reports) helps us improve the app &mdash; and you can turn that off in Settings at any time.</p>
+      <p style="margin:0"><strong>The short version.</strong> Your breakup journey never leaves your phone. Every streak, mood, letter, red flag, and moment you save lives only on your device. We don't run a server that stores your content, and we can't read it even if we wanted to. Two narrow exceptions, both explained below: a small amount of anonymous usage and crash data (which you can turn off in Settings), and the AI coach, where the messages you choose to send are used only to generate the reply and are not stored by us.</p>
     </div>
 
     <h2>1. Who we are</h2>
-    <p>NoContact ("the app", "we", "us") is a mobile application operated as an independent project by its developer. This policy explains what the app does with your information &mdash; a deliberately short list, because the app is designed to do as little as possible with it.</p>
+    <p>No Contact Tracker, also shown as NoContact in the app ("the app", "we", "us"), is a mobile application for iOS and Android, operated as an independent project by its developer. This policy explains what the app does with your information: a deliberately short list, because the app is designed to do as little as possible with it.</p>
     <p>If you have questions about this policy or want to exercise any of the rights described below, email us at <a href="mailto:nocontact.app.support@gmail.com">nocontact.app.support@gmail.com</a>.</p>
 
     <h2>2. What stays on your device</h2>
-    <p>Everything you create inside the app is stored locally in your phone's private app storage (IndexedDB inside the app's WebView). It is never uploaded to us, never synced to any server we run, and never shared with any third party. This includes:</p>
+    <p>Everything you create inside the app is stored locally in your phone's private app storage. It is never uploaded to a server we run and never shared with any third party. This includes:</p>
     <ul>
       <li>Your streak (start date, reset history)</li>
       <li>Mood check-ins</li>
       <li>Red flags you save</li>
       <li>Unsent letters you write</li>
       <li>Saved moments and time capsules</li>
+      <li>Your AI coach chat history (kept on your device only; see section 4)</li>
       <li>Achievements you unlock</li>
       <li>Your preferences (language, sounds, haptics, analytics toggle)</li>
     </ul>
-    <p>When you uninstall the app, this data is deleted by Android along with the app. We have no way to recover it.</p>
+    <p>When you uninstall the app, this data is deleted by iOS or Android along with the app. We have no way to recover it. One note: your phone's own backup system (iCloud Backup on iOS, Google backup on Android) may include the app's local data, like it does for any app. That backup belongs to your Apple or Google account; we cannot access it.</p>
 
     <h2>3. What we collect (if you let us)</h2>
-    <p>By default, the app turns on two anonymous telemetry streams that help us make the app more stable and useful. You can switch them off at any time in <strong>Settings &rarr; Privacy &rarr; Anonymous analytics</strong>. Here's exactly what they do:</p>
+    <p>By default, the app turns on two anonymous telemetry streams that help us make the app more stable and useful. One toggle in <strong>Settings</strong> (anonymous analytics) switches both of them off at any time. Here's exactly what they do:</p>
 
     <table>
       <thead>
@@ -139,31 +140,41 @@
       </thead>
       <tbody>
         <tr>
-          <td><strong>Firebase Analytics</strong><br><span style="color:var(--muted)">Google LLC</span></td>
-          <td>Anonymous event counts: app opens, which screens are used, whether a paywall was shown or dismissed, language selected, a pseudonymous install-ID generated by Google Play Services. <em>Never</em> any of the content you write in the app.</td>
-          <td>Tells us which features people actually use, and where the app is failing to guide people. Without this we're flying blind.</td>
+          <td><strong>Amplitude</strong><br><span style="color:var(--muted)">Amplitude, Inc.</span></td>
+          <td>Anonymous event counts: app opens, which screens and features are used, whether a paywall was shown or dismissed, language selected, and an anonymous device identifier generated by Amplitude. <em>Never</em> any of the content you write in the app: no letter text, no red flag text, no notes, no coach messages.</td>
+          <td>Tells us which features actually help people and where the app fails to guide them. Without this we're flying blind.</td>
         </tr>
         <tr>
-          <td><strong>Firebase Crashlytics</strong><br><span style="color:var(--muted)">Google LLC</span></td>
-          <td>If the app crashes: the stack trace, device model, OS version, app version, and a short breadcrumb of the last few actions (button names, no content). Same pseudonymous install-ID as above.</td>
-          <td>So we can fix crashes. When an app crashes on your phone, Crashlytics bundles the technical details (not your data) and sends us a report.</td>
+          <td><strong>Sentry</strong><br><span style="color:var(--muted)">Functional Software, Inc.</span></td>
+          <td>If the app crashes or hits an error: the stack trace, device model, OS version, app version, and a short breadcrumb of the last few actions (button and screen names, no content).</td>
+          <td>So we can find and fix crashes. Controlled by the same analytics toggle: turning analytics off also turns crash reporting off.</td>
         </tr>
         <tr>
           <td><strong>RevenueCat</strong><br><span style="color:var(--muted)">RevenueCat, Inc.</span></td>
-          <td>If you subscribe to Pro: your subscription status, a pseudonymous ID generated by RevenueCat, and the Google Play purchase receipt. No personal identifiers we add ourselves.</td>
-          <td>Handles receipt validation and subscription state. Required for the Pro subscription to work; cannot be turned off independently of the subscription.</td>
+          <td>If you subscribe to Pro: your subscription status, a pseudonymous ID generated by RevenueCat, and the App Store or Google Play purchase receipt. No personal identifiers we add ourselves.</td>
+          <td>Handles receipt validation and subscription state across platforms. Required for the Pro subscription to work; cannot be turned off independently of the subscription.</td>
         </tr>
         <tr>
-          <td><strong>Google Play Billing</strong><br><span style="color:var(--muted)">Google LLC</span></td>
-          <td>Everything a normal Play Store purchase involves: the Google account associated with the Play Store on your device, the purchase amount, country, tax data. Handled entirely by Google &mdash; we never see your card details.</td>
-          <td>So you can actually pay for a subscription. Governed by <a href="https://policies.google.com/privacy">Google's own privacy policy</a>.</td>
+          <td><strong>Apple App Store / Google Play Billing</strong><br><span style="color:var(--muted)">Apple Inc. / Google LLC</span></td>
+          <td>Everything a normal store purchase involves: the Apple or Google account on your device, the purchase amount, country, tax data. Handled entirely by Apple or Google; we never see your card details.</td>
+          <td>So you can pay for and manage a subscription. Governed by <a href="https://www.apple.com/legal/privacy/">Apple's</a> and <a href="https://policies.google.com/privacy">Google's</a> own privacy policies.</td>
         </tr>
       </tbody>
     </table>
 
-    <p>Turning off the analytics toggle in Settings disables Firebase Analytics and Crashlytics. It does <em>not</em> disable RevenueCat or Google Play Billing, because disabling those would break your ability to use or cancel your subscription.</p>
+    <p>Turning off the analytics toggle in Settings disables Amplitude and Sentry, and the anonymous device identifier is dropped. It does <em>not</em> disable RevenueCat or store billing, because disabling those would break your ability to use or cancel your subscription.</p>
 
-    <h2>4. What we do not collect</h2>
+    <h2>4. The AI coach</h2>
+    <p>The app includes an optional AI coach for the hard moments. It only does anything when you use it, and here is exactly what happens when you do:</p>
+    <ul>
+      <li>The message you type, along with a small amount of context that makes the reply useful (such as your current day count and, where relevant, notes you have chosen to save in the app), is sent over an encrypted connection (HTTPS) to our relay server and passed to OpenAI, which generates the reply.</li>
+      <li><strong>We do not store your conversations.</strong> Our server processes the message in memory to generate the reply and keeps no copy. Your chat history exists only on your device.</li>
+      <li>The only thing our server keeps is an anonymous, per-device counter used to enforce fair daily usage limits. It contains no message content and cannot identify you.</li>
+      <li>OpenAI processes the text as a service provider under its API terms, which as of this writing do not permit using API data to train its models. Still, treat the coach like any online service: don't include names, addresses, or other identifying details you wouldn't want processed by a third party.</li>
+    </ul>
+    <p>The coach offers supportive coaching, not therapy or medical care. In a crisis, contact your local emergency services or a crisis line.</p>
+
+    <h2>5. What we do not collect</h2>
     <ul>
       <li>We do not ask for, store, or transmit your name, email, phone number, or any account credential. The app has no login.</li>
       <li>We do not use advertising or ad networks. The app does not show ads.</li>
@@ -172,33 +183,33 @@
       <li>We do not sell data to anyone. There is no data for us to sell.</li>
     </ul>
 
-    <h2>5. Children</h2>
-    <p>The app is not directed at children under 13, and we do not knowingly collect anything about them. If you believe a child under 13 has used the app and you want the pseudonymous analytics ID associated with their device deleted, email us and we will ask Firebase to delete it.</p>
+    <h2>6. Children</h2>
+    <p>The app is not directed at children under 13, and we do not knowingly collect anything about them. If you believe a child under 13 has used the app and you want the pseudonymous analytics identifier associated with their device deleted, email us and we will help request deletion from the relevant services.</p>
 
-    <h2>6. Your rights</h2>
+    <h2>7. Your rights</h2>
     <p>Because your content lives only on your device, the easiest way to exercise most privacy rights is directly through your phone:</p>
     <ul>
       <li><strong>Access.</strong> Every piece of content you created is visible inside the app. There is no hidden profile we maintain about you.</li>
-      <li><strong>Deletion.</strong> Uninstall the app. Android removes the local database; we never had a copy.</li>
-      <li><strong>Analytics opt-out.</strong> Settings &rarr; Privacy &rarr; Anonymous analytics &rarr; off.</li>
-      <li><strong>Subscription cancellation.</strong> Google Play &rarr; Subscriptions &rarr; NoContact &rarr; Cancel. Governed by Google's refund and cancellation policies.</li>
+      <li><strong>Deletion.</strong> Uninstall the app. iOS or Android removes the local database; we never had a copy.</li>
+      <li><strong>Analytics opt-out.</strong> Settings &rarr; anonymous analytics &rarr; off. This disables both Amplitude and Sentry.</li>
+      <li><strong>Subscription cancellation.</strong> On iOS: Settings &rarr; your name &rarr; Subscriptions. On Android: Google Play &rarr; Subscriptions. Governed by Apple's and Google's refund and cancellation policies.</li>
     </ul>
-    <p>If you are in the European Union, United Kingdom, California, or another jurisdiction that grants specific statutory privacy rights (GDPR, UK GDPR, CCPA/CPRA, etc.), you additionally have the right to request a copy of any data we hold that relates to you, to request correction, and to lodge a complaint with a supervisory authority. Given how little we collect, our response to such a request will usually be "we don't have anything tied to you by name; here is the list of pseudonymous identifiers Firebase and RevenueCat may still have, which you can request deletion from their respective services." Email us and we will help you through that process.</p>
+    <p>If you are in the European Union, United Kingdom, California, or another jurisdiction that grants specific statutory privacy rights (GDPR, UK GDPR, CCPA/CPRA, etc.), you additionally have the right to request a copy of any data we hold that relates to you, to request correction, and to lodge a complaint with a supervisory authority. Given how little we collect, our response will usually be: we hold nothing tied to you by name; here is the list of pseudonymous identifiers Amplitude, Sentry, and RevenueCat may still hold, and we will help you request deletion from those services. Email us and we will walk you through it.</p>
 
-    <h2>7. Security</h2>
-    <p>Your content is stored inside your phone's private per-app sandbox, which Android encrypts as part of full-device encryption. No other app on your phone can read it. All network traffic to Firebase, RevenueCat, and Google Play uses HTTPS. We do not operate our own servers that store your content, so there is no server for us to lose.</p>
+    <h2>8. Security</h2>
+    <p>Your content is stored inside your phone's private per-app sandbox, which iOS and Android encrypt as part of device encryption. No other app on your phone can read it. All network traffic (to Amplitude, Sentry, RevenueCat, the coach relay, and the stores) uses HTTPS. We do not operate servers that store your content, so there is no content server for us to lose.</p>
 
-    <h2>8. International data transfers</h2>
-    <p>The third parties listed above (Google, RevenueCat) may process data on servers located in the United States or other countries. By using the app you acknowledge that anonymous telemetry and subscription receipts may be processed outside your country of residence, under those providers' own safeguards (Standard Contractual Clauses, etc.).</p>
+    <h2>9. International data transfers</h2>
+    <p>The providers listed above (Amplitude, Sentry, RevenueCat, OpenAI, Apple, Google) may process data on servers located in the United States or other countries. By using the app you acknowledge that anonymous telemetry, subscription receipts, and coach messages may be processed outside your country of residence, under those providers' own safeguards (Standard Contractual Clauses, etc.).</p>
 
-    <h2>9. Changes to this policy</h2>
-    <p>If we materially change what the app collects or how, we will update this page and bump the "Last updated" date at the top. If the change is significant (e.g. adding a new analytics provider, or adding cloud sync for your content), we will also surface a one-time notice inside the app so you can review it before continuing.</p>
+    <h2>10. Changes to this policy</h2>
+    <p>If we materially change what the app collects or how, we will update this page and bump the "Last updated" date at the top. If the change is significant (for example, adding a new analytics provider or adding cloud sync for your content), we will also surface a one-time notice inside the app so you can review it before continuing.</p>
 
-    <h2>10. Contact</h2>
+    <h2>11. Contact</h2>
     <p>Email: <a href="mailto:nocontact.app.support@gmail.com">nocontact.app.support@gmail.com</a></p>
 
     <footer>
-      &copy; 2026 NoContact. This policy is available at a stable URL and linked from the in-app Settings screen.
+      &copy; 2026 No Contact Tracker. This policy is available at a stable URL and linked from the in-app Settings screen.
     </footer>
   </div>
 </body>
