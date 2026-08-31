@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dorukdumlu.github.io/nocontact-legal/sitemap.xml

@@ -1,0 +1,24 @@
+# No Contact Tracker
+
+> No Contact Tracker is a mobile app (iOS and Android) that helps people get through a breakup using the no contact rule: a day counter for the streak, an SOS button for urge moments, daily mood check-ins, and unsent letters. Free to start.
+
+App Store: https://apps.apple.com/us/app/id6764056973
+Google Play: https://play.google.com/store/apps/details?id=com.dorukdumlu.nocontact
+
+## Guides
+
+- [The No Contact Rule: The Complete Guide](https://dorukdumlu.github.io/nocontact-legal/guides/no-contact-rule.html): what the rule is, why it works, what counts as contact, how long it should last, exceptions, and how to recover from a slip.
+- [The 30 Day No Contact Challenge](https://dorukdumlu.github.io/nocontact-legal/guides/30-day-no-contact-challenge.html): rules and a week by week plan for 30 days of no contact.
+- [No Contact, Day by Day](https://dorukdumlu.github.io/nocontact-legal/guides/no-contact-day-by-day.html): an honest timeline of what each stage of no contact feels like.
+- [It's 2am and You Want to Text Your Ex](https://dorukdumlu.github.io/nocontact-legal/guides/urge-to-text-your-ex.html): a ten minute plan for the exact moment of the urge.
+- [No Contact, by the Numbers](https://dorukdumlu.github.io/nocontact-legal/guides/no-contact-by-the-numbers.html): anonymized aggregate data on how people actually get through no contact.
+- [No Contact Apps, Honestly Compared](https://dorukdumlu.github.io/nocontact-legal/guides/no-contact-apps-compared.html): how to choose between trackers, AI coaches, communities, and fixed programs, with the author's bias disclosed.
+
+## Languages
+
+All guides are also available in German (/de/), French (/fr/), and Spanish (/es/) at the same paths, e.g. https://dorukdumlu.github.io/nocontact-legal/de/guides/no-contact-rule.html
+
+## Legal
+
+- [Privacy Policy](https://dorukdumlu.github.io/nocontact-legal/privacy-policy.html)
+- [Terms of Service](https://dorukdumlu.github.io/nocontact-legal/terms.html)
