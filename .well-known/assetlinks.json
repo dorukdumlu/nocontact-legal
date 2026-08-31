@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.dorukdumlu.nocontact",
+      "sha256_cert_fingerprints": [
+        "5B:F3:AE:BF:58:AC:87:7F:C0:FC:F6:5A:1F:42:C5:42:11:A3:84:FC:D3:A4:FD:B1:B1:CB:8A:24:02:49:96:9B"
+      ]
+    }
+  }
+]
