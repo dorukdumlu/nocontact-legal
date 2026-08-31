@@ -496,6 +496,7 @@ blockquote {
   margin-bottom: 64px;
 }
 .feat {
+  position: relative;
   text-align: left;
   padding: 22px 24px;
   border-radius: 18px;
@@ -506,6 +507,18 @@ blockquote {
   font: inherit;
   transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
 }
+/* tap affordance that works without hover (mobile) */
+.feat::after {
+  content: "\203A";
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-size: 21px;
+  line-height: 1;
+  color: var(--faint);
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+.feat:hover::after { color: var(--accent); transform: translateX(3px); }
 .feat:hover {
   border-color: var(--accent-line);
   background: var(--surface-2);
