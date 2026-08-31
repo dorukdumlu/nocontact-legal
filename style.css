@@ -282,10 +282,10 @@ blockquote {
   top: 20px;
   width: 258px;
   margin-left: -129px;
-  transition: transform 0.45s cubic-bezier(0.22, 0.9, 0.3, 1), filter 0.45s ease, opacity 0.45s ease;
+  /* No CSS transitions here: the script paints every frame via rAF, so depth,
+     blur, and z-order stay coherent through the whole movement. */
   will-change: transform, filter;
 }
-.showcase.dragging .c-item { transition: none; }
 .c-frame {
   position: relative;
   border-radius: 42px;
@@ -327,16 +327,21 @@ blockquote {
   left: 0;
   right: 0;
 }
-.c-dots { position: absolute; bottom: 24px; left: 0; right: 0; display: flex; justify-content: center; gap: 8px; }
+.c-dots { position: absolute; bottom: 18px; left: 0; right: 0; display: flex; justify-content: center; gap: 4px; }
 .c-dots span {
-  width: 7px;
-  height: 7px;
+  /* 8px dot with a ~20px tap target */
+  width: 8px;
+  height: 8px;
+  padding: 6px;
+  box-sizing: content-box;
+  background: rgba(255, 255, 255, 0.16);
+  background-clip: content-box;
   border-radius: 50%;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  transition: background 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
-.c-dots span.on { background: var(--accent); border-color: var(--accent); }
+.c-dots span:hover { background-color: rgba(255, 255, 255, 0.35); }
+.c-dots span.on { background-color: var(--accent); }
 
 /* ── Guide index ─────────────────────────────────────── */
 .section-head {

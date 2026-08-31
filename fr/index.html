@@ -100,7 +100,7 @@
   <nav class="site-nav">
     <a class="brand" href="./index.html"><img class="brand-dot" src="../assets/icon-96.png" alt="" /> No Contact Tracker</a>
     <a href="./guides/no-contact-rule.html">Guides</a>
-    <a class="nav-cta" href="https://apps.apple.com/fr/app/id6764056973">Télécharger l'app</a>
+    <a class="nav-cta" href="./get.html">Télécharger l'app</a>
   </nav>
 
   <section class="hero">
@@ -124,7 +124,7 @@
   <section class="showcase" id="showcase" aria-label="Écrans de l'app">
     <div class="c-item"><div class="c-frame"><img width="640" height="1391" loading="lazy" decoding="async" src="../assets/screens/flags.webp" alt="Coffre à red flags: tes raisons de tenir bon" draggable="false" /></div></div>
     <div class="c-item"><div class="c-frame"><img width="640" height="1391" loading="lazy" decoding="async" src="../assets/screens/coach.webp" alt="Écran de discussion avec le coach de guérison" draggable="false" /></div></div>
-    <div class="c-item"><div class="c-frame"><img width="640" height="1391" loading="lazy" decoding="async" src="../assets/screens/home.webp" alt="Écran d'accueil: compteur à 41 jours avec check-in d'humeur" draggable="false" /></div></div>
+    <div class="c-item"><div class="c-frame"><img width="640" height="1391" fetchpriority="high" decoding="async" src="../assets/screens/home.webp" alt="Écran d'accueil: compteur à 41 jours avec check-in d'humeur" draggable="false" /></div></div>
     <div class="c-item"><div class="c-frame"><img width="640" height="1391" loading="lazy" decoding="async" src="../assets/screens/sos.webp" alt="Écran SOS: respiration guidée quand l'envie monte" draggable="false" /></div></div>
     <div class="c-item"><div class="c-frame"><img width="640" height="1391" loading="lazy" decoding="async" src="../assets/screens/wins.webp" alt="Moments sauvés: les envies auxquelles tu as résisté" draggable="false" /></div></div>
     <div class="c-dots" aria-hidden="true"><span></span><span></span><span class="on"></span><span></span><span></span></div>
@@ -258,74 +258,125 @@
   var dots = Array.prototype.slice.call(stage.querySelectorAll(".c-dots span"));
   var n = items.length;
   var current = Math.floor(n / 2); // start on the home screen
-  var STEP = 185;                   // px of horizontal travel per position
+  var pos = current;               // animated position, fractional
+  var STEP = 185;                  // px of horizontal travel per position
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  function render(pos) {
+  function paint(p) {
     for (var i = 0; i < n; i++) {
-      var d = i - pos;
+      var d = i - p;
       var ad = Math.abs(d);
-      var x = d * STEP;
-      var scale = Math.max(0.45, 1 - 0.16 * ad);
-      var blur = Math.min(9, ad * 2.6);
-      var op = ad > 2.35 ? 0 : 1 - 0.12 * ad;
-      items[i].style.transform = "translateX(" + x + "px) scale(" + scale + ")";
-      items[i].style.filter = "blur(" + blur + "px) brightness(" + (1 - 0.13 * ad) + ")";
-      items[i].style.opacity = op;
+      items[i].style.transform = "translateX(" + d * STEP + "px) scale(" + Math.max(0.45, 1 - 0.16 * ad) + ")";
+      items[i].style.filter = "blur(" + Math.min(9, ad * 2.6) + "px) brightness(" + (1 - 0.13 * ad) + ")";
+      items[i].style.opacity = ad > 2.35 ? 0 : 1 - 0.12 * ad;
       items[i].style.zIndex = String(100 - Math.round(ad * 10));
     }
-    var active = Math.round(pos);
+    var active = Math.round(p);
     for (var j = 0; j < dots.length; j++) {
       dots[j].className = j === active ? "on" : "";
     }
   }
 
-  var dragging = false, startX = 0, startPos = current, moved = 0;
+  // Exponential approach toward the target: motion eases out naturally and
+  // every frame recomputes depth, blur, and z-order, so screens glide past
+  // each other instead of snapping between transition states.
+  var raf = null;
+  function tick() {
+    raf = null;
+    var diff = current - pos;
+    if (Math.abs(diff) < 0.002) {
+      pos = current;
+      paint(pos);
+      return;
+    }
+    pos += diff * 0.13;
+    paint(pos);
+    raf = requestAnimationFrame(tick);
+  }
+  function go(i) {
+    current = Math.min(n - 1, Math.max(0, i));
+    if (reduced) {
+      pos = current;
+      paint(pos);
+      return;
+    }
+    if (!raf) raf = requestAnimationFrame(tick);
+  }
+
+  // Autoplay: ping-pong every 4.2s. Holds off after any interaction, and
+  // stays quiet while hovered, offscreen, in a hidden tab, or reduced-motion.
+  var dir = 1;
+  var holdUntil = 0;
+  var hovering = false;
+  var onscreen = true;
+  function hold(ms) { holdUntil = Date.now() + ms; }
+  if (!reduced) {
+    setInterval(function () {
+      if (hovering || !onscreen || document.hidden || Date.now() < holdUntil) return;
+      if (current >= n - 1) dir = -1;
+      else if (current <= 0) dir = 1;
+      go(current + dir);
+    }, 4200);
+  }
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      onscreen = entries[0].isIntersecting;
+    }, { threshold: 0.25 }).observe(stage);
+  }
+  stage.addEventListener("mouseenter", function () { hovering = true; });
+  stage.addEventListener("mouseleave", function () { hovering = false; });
+
+  var dragging = false, startX = 0, startPos = 0, moved = 0;
 
   stage.addEventListener("pointerdown", function (e) {
     dragging = true;
     moved = 0;
     startX = e.clientX;
-    startPos = current;
+    startPos = pos;
+    if (raf) { cancelAnimationFrame(raf); raf = null; }
     stage.classList.add("dragging");
     stage.setPointerCapture(e.pointerId);
+    hold(9000);
   });
   stage.addEventListener("pointermove", function (e) {
     if (!dragging) return;
     var dx = e.clientX - startX;
     moved = Math.max(moved, Math.abs(dx));
-    var pos = Math.min(n - 1, Math.max(0, startPos - dx / STEP));
-    render(pos);
-    current = pos;
+    pos = Math.min(n - 1, Math.max(0, startPos - dx / STEP));
+    paint(pos);
   });
   function endDrag(e) {
     if (!dragging) return;
     dragging = false;
     stage.classList.remove("dragging");
+    hold(9000);
     if (moved < 6 && e && e.target) {
-      // treat as a click: center the tapped phone
       var item = e.target.closest ? e.target.closest(".c-item") : null;
-      if (item) current = items.indexOf(item);
+      if (item) { go(items.indexOf(item)); return; }
     }
-    current = Math.min(n - 1, Math.max(0, Math.round(current)));
-    render(current);
+    go(Math.round(pos));
   }
   stage.addEventListener("pointerup", endDrag);
   stage.addEventListener("pointercancel", endDrag);
 
+  dots.forEach(function (dot, j) {
+    dot.addEventListener("click", function () { hold(9000); go(j); });
+  });
+
   document.addEventListener("keydown", function (e) {
-    if (e.key === "ArrowRight" && current < n - 1) { current += 1; render(current); }
-    if (e.key === "ArrowLeft" && current > 0) { current -= 1; render(current); }
+    if (e.key === "ArrowRight" && current < n - 1) { hold(9000); go(current + 1); }
+    if (e.key === "ArrowLeft" && current > 0) { hold(9000); go(current - 1); }
   });
 
   document.querySelectorAll(".feat").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      current = Math.min(n - 1, Math.max(0, parseInt(btn.dataset.screen, 10) || 0));
-      render(current);
-      stage.scrollIntoView({ behavior: "smooth", block: "center" });
+      hold(12000);
+      go(parseInt(btn.dataset.screen, 10) || 0);
+      stage.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
     });
   });
 
-  render(current);
+  paint(pos);
 })();
 </script>
 </body>
