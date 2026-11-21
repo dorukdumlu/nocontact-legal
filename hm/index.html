@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Get No Contact Tracker</title>
+  <meta name="description" content="Download No Contact Tracker for iOS or Android." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/png" href="../favicon.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="stylesheet" href="../style.css" />
+  <script>
+    // Creator short link: nocontacttracker.com/hm (fresh path for the bio; /hayden kept)
+    // Android: the Play referrer carries the creator into the app's install referrer.
+    // iOS: App Store campaign link (ct) shows up in App Analytics > Campaigns.
+    (function () {
+      var CREATOR = "haydenmmaster";
+      var ua = navigator.userAgent || "";
+      var PLAY = "https://play.google.com/store/apps/details?id=com.dorukdumlu.nocontact&referrer=" +
+        encodeURIComponent("utm_source=tiktok&utm_medium=ugc&utm_campaign=" + CREATOR);
+      var APPLE = "https://apps.apple.com/app/apple-store/id6764056973?pt=128748495&ct=" + CREATOR + "&mt=8";
+      // TikTok, Instagram and Facebook open links in their own browser, which refuses to hand off
+      // to the App Store ("Action can't be completed"). There we skip the auto-redirect and ask the
+      // visitor to open the page in Safari or Chrome, where the redirect below works.
+      // Fail-safe: redirect only when this is clearly a real browser. iOS in-app browsers (WKWebView)
+      // usually lack the "Safari/" token; Android WebViews carry "; wv)". Anything unsure gets the note.
+      var inApp = /musical_ly|BytedanceWebview|TikTok|trill|Instagram|FBAN|FBAV|FB_IAB|Snapchat|Line\/|Twitter/i.test(ua);
+      var ios = /iPhone|iPad|iPod/i.test(ua), android = /android/i.test(ua);
+      var realIOS = ios && /Safari\//.test(ua) && !inApp;
+      var realAndroid = android && !/; wv\)/.test(ua) && !inApp;
+      if (/[?&]debug/.test(location.search)) {
+        document.addEventListener("DOMContentLoaded", function () {
+          var p = document.createElement("p");
+          p.style.cssText = "font:12px monospace;word-break:break-all;opacity:.8;margin:24px 16px";
+          p.textContent = "UA: " + ua + " | inApp=" + inApp + " realIOS=" + realIOS + " realAndroid=" + realAndroid;
+          document.body.appendChild(p);
+        });
+        if (ios || android) document.documentElement.className += " in-app";
+        return;
+      }
+      // No auto-redirect at all: TikTok scans bio links and blocks any that land on a store page,
+      // before the page even loads. Real browsers get one store button tap instead.
+      if (realIOS) document.documentElement.className += " real-ios";
+      else if (realAndroid) document.documentElement.className += " real-android";
+      else if (ios || android) document.documentElement.className += " in-app";
+    })();
+  </script>
+  <style>
+    .inapp-note { display: none; margin: 0 auto 26px; max-width: 34ch; padding: 16px 18px; border-radius: 14px;
+      background: var(--card, rgba(127,127,127,.08)); border: 1px solid rgba(127,127,127,.25); font-size: 16px; line-height: 1.55; }
+    .inapp-note b { font-size: 17px; }
+    .inapp-note .arrow { position: fixed; top: 6px; right: 14px; font-size: 34px; line-height: 1; }
+    .in-app .inapp-note { display: block; }
+    .in-app .sub-default { display: none; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="site-nav">
+    <a class="brand" href="../index.html"><img class="brand-dot" src="../assets/icon-96.png" alt="" /> No Contact Tracker</a>
+  </nav>
+  <section class="hero">
+    <h1>Get the app</h1>
+    <p class="sub sub-default">Tap your store below to download.</p>
+    <div class="inapp-note">
+      <span class="arrow" aria-hidden="true">&#8599;</span>
+      <b>Tap &bull;&bull;&bull; at the top right, then &ldquo;Open in browser&rdquo;.</b><br />
+      TikTok&rsquo;s browser can&rsquo;t open the App Store. In Safari or Chrome the button below opens the app page.
+    </div>
+    <div class="store-buttons">
+      <a class="badge" id="apple" href="https://apps.apple.com/app/apple-store/id6764056973?pt=128748495&amp;ct=haydenmmaster&amp;mt=8"><span class="b-txt"><small>Download on the</small>App Store</span></a>
+      <a class="badge" id="play" href="https://play.google.com/store/apps/details?id=com.dorukdumlu.nocontact&amp;referrer=utm_source%3Dtiktok%26utm_medium%3Dugc%26utm_campaign%3Dhaydenmmaster"><span class="b-txt"><small>Get it on</small>Google Play</span></a>
+    </div>
+  </section>
+</div>
+</body>
+</html>

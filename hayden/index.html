@@ -38,9 +38,11 @@
         if (ios || android) document.documentElement.className += " in-app";
         return;
       }
-      if (realAndroid) { location.replace(PLAY); return; }
-      if (realIOS) { location.replace(APPLE); return; }
-      if (ios || android) document.documentElement.className += " in-app";
+      // No auto-redirect at all: TikTok scans bio links and blocks any that land on a store page,
+      // before the page even loads. Real browsers get one store button tap instead.
+      if (realIOS) document.documentElement.className += " real-ios";
+      else if (realAndroid) document.documentElement.className += " real-android";
+      else if (ios || android) document.documentElement.className += " in-app";
     })();
   </script>
   <style>
@@ -59,11 +61,11 @@
   </nav>
   <section class="hero">
     <h1>Get the app</h1>
-    <p class="sub sub-default">Pick your store below. On a phone this page jumps straight to the right one.</p>
+    <p class="sub sub-default">Tap your store below to download.</p>
     <div class="inapp-note">
       <span class="arrow" aria-hidden="true">&#8599;</span>
       <b>Tap &bull;&bull;&bull; at the top right, then &ldquo;Open in browser&rdquo;.</b><br />
-      TikTok&rsquo;s browser can&rsquo;t open the App Store. In Safari or Chrome this page takes you straight to the app.
+      TikTok&rsquo;s browser can&rsquo;t open the App Store. In Safari or Chrome the button below opens the app page.
     </div>
     <div class="store-buttons">
       <a class="badge" id="apple" href="https://apps.apple.com/app/apple-store/id6764056973?pt=128748495&amp;ct=haydenmmaster&amp;mt=8"><span class="b-txt"><small>Download on the</small>App Store</span></a>
