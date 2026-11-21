@@ -22,10 +22,25 @@
       // TikTok, Instagram and Facebook open links in their own browser, which refuses to hand off
       // to the App Store ("Action can't be completed"). There we skip the auto-redirect and ask the
       // visitor to open the page in Safari or Chrome, where the redirect below works.
-      var inApp = /musical_ly|BytedanceWebview|TikTok|trill|Instagram|FBAN|FBAV|FB_IAB|Snapchat/i.test(ua);
-      if (inApp) { document.documentElement.className += " in-app"; return; }
-      if (/android/i.test(ua)) { location.replace(PLAY); }
-      else if (/iPhone|iPad|iPod/i.test(ua)) { location.replace(APPLE); }
+      // Fail-safe: redirect only when this is clearly a real browser. iOS in-app browsers (WKWebView)
+      // usually lack the "Safari/" token; Android WebViews carry "; wv)". Anything unsure gets the note.
+      var inApp = /musical_ly|BytedanceWebview|TikTok|trill|Instagram|FBAN|FBAV|FB_IAB|Snapchat|Line\/|Twitter/i.test(ua);
+      var ios = /iPhone|iPad|iPod/i.test(ua), android = /android/i.test(ua);
+      var realIOS = ios && /Safari\//.test(ua) && !inApp;
+      var realAndroid = android && !/; wv\)/.test(ua) && !inApp;
+      if (/[?&]debug/.test(location.search)) {
+        document.addEventListener("DOMContentLoaded", function () {
+          var p = document.createElement("p");
+          p.style.cssText = "font:12px monospace;word-break:break-all;opacity:.8;margin:24px 16px";
+          p.textContent = "UA: " + ua + " | inApp=" + inApp + " realIOS=" + realIOS + " realAndroid=" + realAndroid;
+          document.body.appendChild(p);
+        });
+        if (ios || android) document.documentElement.className += " in-app";
+        return;
+      }
+      if (realAndroid) { location.replace(PLAY); return; }
+      if (realIOS) { location.replace(APPLE); return; }
+      if (ios || android) document.documentElement.className += " in-app";
     })();
   </script>
   <style>
