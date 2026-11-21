@@ -19,10 +19,23 @@
       var PLAY = "https://play.google.com/store/apps/details?id=com.dorukdumlu.nocontact&referrer=" +
         encodeURIComponent("utm_source=tiktok&utm_medium=ugc&utm_campaign=" + CREATOR);
       var APPLE = "https://apps.apple.com/app/apple-store/id6764056973?pt=128748495&ct=" + CREATOR + "&mt=8";
+      // TikTok, Instagram and Facebook open links in their own browser, which refuses to hand off
+      // to the App Store ("Action can't be completed"). There we skip the auto-redirect and ask the
+      // visitor to open the page in Safari or Chrome, where the redirect below works.
+      var inApp = /musical_ly|BytedanceWebview|TikTok|trill|Instagram|FBAN|FBAV|FB_IAB|Snapchat/i.test(ua);
+      if (inApp) { document.documentElement.className += " in-app"; return; }
       if (/android/i.test(ua)) { location.replace(PLAY); }
       else if (/iPhone|iPad|iPod/i.test(ua)) { location.replace(APPLE); }
     })();
   </script>
+  <style>
+    .inapp-note { display: none; margin: 0 auto 26px; max-width: 34ch; padding: 16px 18px; border-radius: 14px;
+      background: var(--card, rgba(127,127,127,.08)); border: 1px solid rgba(127,127,127,.25); font-size: 16px; line-height: 1.55; }
+    .inapp-note b { font-size: 17px; }
+    .inapp-note .arrow { position: fixed; top: 6px; right: 14px; font-size: 34px; line-height: 1; }
+    .in-app .inapp-note { display: block; }
+    .in-app .sub-default { display: none; }
+  </style>
 </head>
 <body>
 <div class="wrap">
@@ -31,7 +44,12 @@
   </nav>
   <section class="hero">
     <h1>Get the app</h1>
-    <p class="sub">Pick your store below. On a phone this page jumps straight to the right one.</p>
+    <p class="sub sub-default">Pick your store below. On a phone this page jumps straight to the right one.</p>
+    <div class="inapp-note">
+      <span class="arrow" aria-hidden="true">&#8599;</span>
+      <b>Tap &bull;&bull;&bull; at the top right, then &ldquo;Open in browser&rdquo;.</b><br />
+      TikTok&rsquo;s browser can&rsquo;t open the App Store. In Safari or Chrome this page takes you straight to the app.
+    </div>
     <div class="store-buttons">
       <a class="badge" id="apple" href="https://apps.apple.com/app/apple-store/id6764056973?pt=128748495&amp;ct=giuliacardozo&amp;mt=8"><span class="b-txt"><small>Download on the</small>App Store</span></a>
       <a class="badge" id="play" href="https://play.google.com/store/apps/details?id=com.dorukdumlu.nocontact&amp;referrer=utm_source%3Dtiktok%26utm_medium%3Dugc%26utm_campaign%3Dgiuliacardozo"><span class="b-txt"><small>Get it on</small>Google Play</span></a>
